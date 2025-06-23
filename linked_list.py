@@ -11,6 +11,15 @@ class Node:
         self.value = value
         self.next = next_
 
+    def __repr__(self):
+        return f"Node({self.value!r}, {self.next!r})"
+
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other: "Node") -> bool:
+        return self.value == other.value
+
 
 class LinkedList:
     def __init__(self):
