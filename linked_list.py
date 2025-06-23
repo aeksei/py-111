@@ -25,23 +25,41 @@ class LinkedList:
     def __init__(self):
         """"""
         self.head: Node | None = None
+        self.tail: Node | None = None
         self._len: int = 0
 
     def append(self, value: Any) -> None:
-        """Добавить узел в конец списка."""
+        """Добавить узел в конец списка.
+        O(1)
+        """
         append_node = Node(value)
 
-        if not self.head:
-            self.head = append_node
+        if not self.tail:
+            self.head = self.tail = append_node
         else:
-            last_index = self._len - 1
-            tail = self._step_by_step(last_index)
-            tail.next = append_node
+            self.tail.next = append_node  # Старый хвост связанного списка
+            self.tail = append_node  # Перезаписываю хвост
 
         self._len += 1
 
+    def popleft(self) -> Node:
+        """Снять узел сначала списка
+        O(1)
+        """
+        if not self.head:
+            raise ValueError("Empty linked list")
+
+        head = self.head
+        self.head = self.head.next
+
+        return head
+
+
     def _step_by_step(self, i: int) -> Node:
-        """Дойти до нужно узла и вернуть его."""
+        """Дойти до нужно узла и вернуть его.
+        O(N)
+
+        """
         current_node = self.head
         for _ in range(i):
             current_node = current_node.next
