@@ -86,8 +86,27 @@ class LinkedList:
         return current_node.value
 
     def __len__(self) -> int:
-        print("__len__")
         return self._len
+
+    def __iter__(self):
+        """"""
+        print("__iter__")
+        current_node = self.head
+        for _ in range(len(self)):
+            yield current_node.value
+            current_node = current_node.next
+
+    def __reversed__(self):
+        """"""
+
+    # def __contains__(self, item) -> bool:
+    #     current_node = self.head
+    #     for _ in range(len(self)):
+    #         if current_node.value == item:
+    #             return True
+    #         current_node = current_node.next
+    #
+    #     return False
 
 
 if __name__ == '__main__':
@@ -104,7 +123,7 @@ if __name__ == '__main__':
     print("Does not exist item" in ll)
 
     # TODO Алгоритмическая сложность сортировки через sorted
-    print(sorted(ll))  # O(N * log(N)))
+    print(sorted(ll))  # O(N * log(N))) | N^2 +  O(N * log(N))) | N + O(N * log(N)))
 
     # TODO Алгоритмическая сложность сортировки через sorted
     for value in reversed(ll):  # for i in range(len(ll), -1, -1): ll[i]
