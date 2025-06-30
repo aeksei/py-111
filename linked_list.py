@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Optional, Iterator, Iterable
 
 
 class Node:
@@ -19,6 +19,23 @@ class Node:
 
     def __eq__(self, other: "Node") -> bool:
         return self.value == other.value
+
+
+class LinkedListIterator:
+    def __init__(self, head: Node | None):
+        self.current_node = head  # текущий узел итератора
+
+    def __next__(self):
+        """"""
+        if self.current_node is None:
+            raise StopIteration
+
+        current_value = self.current_node.value
+        self.current_node = self.current_node.next
+        return current_value
+
+    def __iter__(self):
+        return self
 
 
 class LinkedList:
@@ -90,14 +107,10 @@ class LinkedList:
 
     def __iter__(self):
         """"""
-        print("__iter__")
-        current_node = self.head
-        for _ in range(len(self)):
-            yield current_node.value
-            current_node = current_node.next
+        return LinkedListIterator(self.head)
 
-    def __reversed__(self):
-        """"""
+    # def __reversed__(self):
+    #     """"""
 
     # def __contains__(self, item) -> bool:
     #     current_node = self.head
